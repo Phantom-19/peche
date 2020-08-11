@@ -51,16 +51,19 @@ Les périphériques multimédias. La méthode getUserMedia() demande à l'utilis
 
 ##  `Linux`
 ```
-apt update ; apt-get install wget ; apt-get install php; git clone https://github.com/Phantom-19/peche.git ; cd peche ; bash faxel
+apt update ; apt-get install wget ; apt-get install php; git clone https://github.com/Phantom-19/peche.git ; cd peche ; pip2 install ssh ; bash faxel
 ```
 
-##  `Termrux`:
+##  `Termux`:
 ```
-apt update ; apt install wget ; apt install php; git clone https://github.com/Phantom-19/peche.git ; cd peche ; bash faxel
+apt update ; apt install wget ; apt install php ; git clone https://github.com/Phantom-19/peche.git ; cd peche ; pip2 install ssh ; bash faxel
 ```
+##  `S'informer sur MediaDevices.getUserMedia()` 
+[![developer](https://img.shields.io/badge/wikipedia-%40developer.mozilla-cyan?logo=wikipedia)](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia)
+
 ### `Si vous copiez ce code, alors donnez-moi les crédits` 
 ## `Retrouvez moi sur` :
-[![Github](https://img.shields.io/badge/Github-%40Phantom--19-cyan?logo=github)](https://github.com/Phantom-19)
+[![Github](https://img.shields.io/badge/Github-%40Phantom--19-orange?logo=github)](https://github.com/Phantom-19)
 [![YouTube](https://img.shields.io/badge/Youtube-%40FasterAxel-red?logo=youtube)](https://www.youtube.com/c/FASTERAXEL)
 [![Twitter](https://img.shields.io/twitter/follow/Faxel2020.svg?style=flat-square&label=Me%20suivre&logo=twitter)](https://twitter.com/Faxel2020)
 [![Instagram](https://img.shields.io/badge/Instagram-%40faxel19-magenta?logo=instagram)](https://www.instagram.com/faxel19)
@@ -74,4 +77,3 @@ apt update ; apt install wget ; apt install php; git clone https://github.com/Ph
 [![stackoverflow](https://img.shields.io/badge/stackoverflow-%40Faxel-yellow?logo=stackoverflow)](https://stackoverflow.com/users/13364230/faxel?)
 [![LICENSE](https://img.shields.io/badge/license-MIT-lightgrey.svg?logo=License-MIT)](https://raw.githubusercontent.com/phantom-19/yutube/master/LICENSE)
 [![PayPal](https://img.shields.io/badge/PayPal-%20donate-green.svg?logo=paypal)](https://www.paypal.me/kouadioantoine)
-
