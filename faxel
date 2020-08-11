@@ -161,7 +161,7 @@ sous_domaine="${sous_domaine:-${defaut_sous_domaine}}"
 fi
 serveur
 chargeutile
-verifcateur
+verificateur
 }
 logo_peche
 dependances
