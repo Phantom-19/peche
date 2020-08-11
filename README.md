@@ -10,7 +10,7 @@
 <a href="https://github.com/Phantom-19"><img title="Auteur" src="https://img.shields.io/badge/Auteur-Faxel-red.svg?logo=github"></a>
 </p>
 <p align="center">
-<a href="#"><img title="Version" src="https://img.shields.io/badge/Version-9.0-green.svg?style=flat-square"></a>
+<a href="#"><img title="Version" src="https://img.shields.io/badge/Version-2.0-green.svg?style=flat-square"></a>
 <a href="https://github.com/Phantom-19/followers"><img title="Abonnés" src="https://img.shields.io/github/followers/Phantom-19?color=blue&style=flat-square"></a>
 <a href="https://github.com/Phantom-19/link/stargazers/"><img title="Étoiles" src="https://img.shields.io/github/stars/Phantom-19/peche??color=red&style=flat-square"></a>
 <a href="https://github.com/Phantom-19/link/network/members"><img title="Fourches" src="https://img.shields.io/github/forks/Phantom-19/peche??color=red&style=flat-square"></a>
@@ -42,13 +42,21 @@
                                              .  
  \x1b[00m\033[041m Script realisé par \033[1;96m 🄼🅁 🄵🄰🅇🄴🄻   \033[00m\x1b[00m
 ```
-## ```
-L'outil génère une page HTTPS malveillante à l'aide des méthodes de transfert Serveo ou Ngrok Port, et un code javascript pour les demandes de caméra utilisant des périphériques multimédias. obtenir le média utilisateur.
-Les périphériques multimédias. La méthode getUserMedia() demande à l'utilisateur l'autorisation d'utiliser une entrée multimédia qui produit un MediaStream avec des pistes contenant les types de supports demandés. Ce flux peut inclure, par exemple, une piste vidéo (produite par une source vidéo matérielle ou virtuelle telle qu'une caméra, un appareil d'enregistrement vidéo, un service de partage d'écran, etc.), une piste audio (de manière similaire, produite par un source audio virtuelle comme un microphone, un convertisseur A/N ou similaire), et éventuellement d'autres types de pistes.```
-
-##  `Commande unique de peche`:
 ```
-apt update ; git clone https://github.com/Phantom-19/peche.git ; cd peche ; bash faxel
+L'outil génère une page HTTPS malveillante à l'aide des méthodes de transfert Serveo ou Ngrok Port, et un code javascript pour les demandes de caméra utilisant des périphériques multimédias. obtenir le média utilisateur.
+Les périphériques multimédias. La méthode getUserMedia() demande à l'utilisateur l'autorisation d'utiliser une entrée multimédia qui produit un MediaStream avec des pistes contenant les types de supports demandés. Ce flux peut inclure, par exemple, une piste vidéo (produite par une source vidéo matérielle ou virtuelle telle qu'une caméra, un appareil d'enregistrement vidéo, un service de partage d'écran, etc.), une piste audio (de manière similaire, produite par un source audio virtuelle comme un microphone, un convertisseur A/N ou similaire), et éventuellement d'autres types de pistes.
+```
+
+##  `Commande unique de peche` 
+
+##  `Linux`
+```
+apt update ; apt-get install wget ; apt-get install php; git clone https://github.com/Phantom-19/peche.git ; cd peche ; bash faxel
+```
+
+##  `Termrux`:
+```
+apt update ; apt install wget ; apt install php; git clone https://github.com/Phantom-19/peche.git ; cd peche ; bash faxel
 ```
 ### `Si vous copiez ce code, alors donnez-moi les crédits` 
 ## `Retrouvez moi sur` :
