@@ -128,10 +128,10 @@ printf "\n"
 printf "\e[1;97m╔══════════════════╗\e[0m\n"
 printf "\e[1;97m║\e[1;91m[\e[0m\e[1;77m1\e[0m\e[1;91m]\e[0m\e[1;93m Serveo.net\e[1;97m║\e[0m\n"
 printf "\e[1;97m║\e[1;91m[\e[0m\e[1;77m2\e[0m\e[1;91m]\e[0m\e[1;93m Ngrok     \e[1;97m║\e[0m\n"
-printf "\e[1;97m╚══════════════════╝\e[0m"
-printf "\e[1;97m║\e[1;97m Choisissez une option de redirection de port\e[0m"
+printf "\e[1;97m╚══════════════════╝\e[0m\n"
+printf "\e[1;97m║\e[38;5;125m Choisissez une option de redirection de port\e[0m\n"
 option_serveur_par_defaut="1" 
-read -p $'\e[1;91m[\e[0m\e[1;73m+\e[0m\e[1;91m] \e[1;77m╚═\e[1;31m▶\e[38;5;245m Mr \e[38;5;221mFaxel \e[1;91m▶▶ \e[1;76m\e[0m' option_serveur
+read -p $'\e[1;77m╚═\e[1;31m▶\e[38;5;245m Mr \e[38;5;221mFaxel \e[1;91m▶▶ \e[1;76m\e[0m' option_serveur
 option_serveur="${option_serveur:-${option_serveur_par_defaut}}"
 if [[ $option_serveur -eq 1 ]]; then
 command -v php > /dev/null 2>&1 || { echo >&2 "J'ai besoin de ssh mais il n'est pas installé.\nInstallez-le  pip2 install ssh et relancez."; exit 1; }
