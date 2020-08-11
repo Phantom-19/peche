@@ -116,7 +116,7 @@ printf "\e[1;92m[\e[0m+\e[1;92m] Démarrage du serveur ngrok...\n"
 ./ngrok http 3333 > /dev/null 2>&1 &
 sleep 10
 lien=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
-printf "\e[1;92m[\e[0m*\e[1;92m] Lien direct: \e[0m\e[1;77m %s\e[0m\n" $lien
+printf "\e[1;92m[\e[0m*\e[1;92m] Lien direct \e[1;91m: \e[0m\e[1;77m %s\e[0m\n" $lien
 charge_utile_ngrok
 verificateur
 }
@@ -125,8 +125,10 @@ if [[ -e sendlink ]]; then
 rm -rf sendlink
 fi
 printf "\n"
-printf "\e[1;92m[\e[0m\e[1;77m1\e[0m\e[1;92m]\e[0m\e[1;93m Serveo.net\e[0m\n"
-printf "\e[1;92m[\e[0m\e[1;77m2\e[0m\e[1;92m]\e[0m\e[1;93m Ngrok\e[0m\n"
+printf "\e[1;97m╔══════════════════════════════╗\e[0m\n"
+printf "\e[1;97m║\e[1;91m[\e[0m\e[1;77m1\e[0m\e[1;91m]\e[0m\e[1;93m Serveo.net\e[1;97m║\e[0m\n"
+printf "\e[1;97m║\e[1;91m[\e[0m\e[1;77m2\e[0m\e[1;91m]\e[0m\e[1;93m Ngrok     \e[1;97m║\e[0m\n"
+printf "\e[1;97m╚══════════════════════════════╝e[0m\n"
 option_serveur_par_defaut="1" 
 read -p $'\n\e[1;91m[\e[0m\e[1;73m+\e[0m\e[1;91m]\e[1;97m Choisissez une option de redirection de port \e[1;91m: \e[1;97m \e[0m' option_serveur
 option_serveur="${option_serveur:-${option_serveur_par_defaut}}"
