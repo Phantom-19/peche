@@ -66,7 +66,7 @@ pkg update ; pkg install wget -y ; pkg install php -y ; git clone https://github
 [![Github](https://img.shields.io/badge/Github-%40Phantom--19-orange?logo=github)](https://github.com/Phantom-19)
 [![YouTube](https://img.shields.io/badge/Youtube-%40FasterAxel-red?logo=youtube)](https://www.youtube.com/c/FASTERAXEL)
 [![Twitter](https://img.shields.io/twitter/follow/Faxel2020.svg?style=flat-square&label=Me%20suivre&logo=twitter)](https://twitter.com/Faxel2020)
-[![Instagram](https://img.shields.io/badge/Instagram-%40faxel19-magenta?logo=instagram)](https://www.instagram.com/faxel19)
+[![Instagram](https://img.shields.io/badge/Instagram-%40faxelh-magenta?logo=instagram)](https://www.instagram.com/faxelh)
 [![Messenger](https://img.shields.io/badge/Chat-Messenger-blue?logo=messenger)](https://www.messenger.com/t/faxel19)
 [![Whatsapp](https://img.shields.io/badge/Whatsapp-%40Faxel-whatsapp--green?logo=whatsapp)](https://wa.me/22555709610)
 [![Telegram](https://img.shields.io/badge/Telegram-%40Faxelh-cyan?logo=telegram)](https://t.me/Faxelh)
